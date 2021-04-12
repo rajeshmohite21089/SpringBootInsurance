@@ -3,21 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.4</version>
+		<groupId>com.example</groupId>
+		<artifactId>AngularSpringParent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>Insurance</groupId>
 	<artifactId>Insurance</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Insurance</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
-		        <start-class>com.example.Insurance.InsuranceApplication</start-class>
-		
 	</properties>
 	<dependencies>
 		<dependency>
@@ -84,15 +81,61 @@
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 		</dependency>
+		<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-integration</artifactId>
+  
+</dependency>
+
+<!-- <dependency>
+   <groupId>com.example</groupId>
+   <artifactId>agular8-springboot-client</artifactId>
+   <version>${project.version}</version>
+   <scope>runtime</scope>
+</dependency> -->
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+			<artifactId>maven-resources-plugin</artifactId>
+			<executions>
+			      <execution>
+			          <id>copy-resources</id>
+			          <phase>validate</phase>
+			          <goals><goal>copy-resources</goal></goals>
+			          <configuration>
+			              <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory >
+			              <resources>
+			                  <resource>
+			                      <directory>${project.parent.basedir}/agular8-springboot-client/dist/agular8-springboot-client/</directory >
+			                  </resource>
+			              </resources>
+			          </configuration>
+			      </execution>
+			</executions>
 			</plugin>
-		</plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+			</plugin>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-war-plugin</artifactId>
+		        <configuration>
+		          <packagingExcludes>WEB-INF/lib/tomcat-*.jar</packagingExcludes>
+		          <warName>Insurance</warName>
+		        </configuration>
+      		</plugin>
+        </plugins>
 	</build>
 
 </project>

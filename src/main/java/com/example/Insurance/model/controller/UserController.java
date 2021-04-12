@@ -36,7 +36,7 @@ public class UserController {
 			produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE}
 			)
 	public ResponseEntity<CreateUserResponseModel> createUser( @RequestBody CreateUserRequestModel userDetails) {
-             System.out.println("userDetails"+userDetails.toString());
+
 		ModelMapper modelmapper = new ModelMapper();
 		modelmapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		UserDTO userDTO = modelmapper.map(userDetails, UserDTO.class);

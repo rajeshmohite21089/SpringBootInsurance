@@ -4,7 +4,11 @@ public class CreateUserResponseModel {
 	private String firstName;
 	private String lastName;
 	private String email;
+
 	private String username;
+
+	private String userId;
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -23,6 +27,7 @@ public class CreateUserResponseModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -30,5 +35,13 @@ public class CreateUserResponseModel {
 		this.username = username;
 	}
 	
+
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 
 }

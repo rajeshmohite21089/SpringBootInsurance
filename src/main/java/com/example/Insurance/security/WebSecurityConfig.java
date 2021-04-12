@@ -85,7 +85,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		 antMatchers("Insurance/login").permitAll().
 		 antMatchers("Insurance/insurance").permitAll().
 		 antMatchers("/login").permitAll().
-		 antMatchers("/users").permitAll()
+		 antMatchers("/users").permitAll().
+		 antMatchers("/").permitAll().
+		 antMatchers("/**").permitAll()
+
 		 
 					/*
 					 * .antMatchers("/login"). hasAnyAuthority("USER", "CREATOR", "EDITOR", "ADMIN")
