@@ -88,6 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		 antMatchers("/users").permitAll().
 		 antMatchers("/").permitAll().
 		 antMatchers("/**").permitAll()
+
 		 
 					/*
 					 * .antMatchers("/login"). hasAnyAuthority("USER", "CREATOR", "EDITOR", "ADMIN")
