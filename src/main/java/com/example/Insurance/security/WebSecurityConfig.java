@@ -32,7 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 BCryptPasswordEncoder(); }
 	 
 	
-	 @Autowired private UserService UserService; 
+	 @Autowired
+	 private UserService UserService; 
 	 private BCryptPasswordEncoder
 	  bCryptPasswordEncoder;
 	  
@@ -82,7 +83,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		 http.authorizeRequests().
 		 antMatchers("login").permitAll().
 		 antMatchers("Insurance/login").permitAll().
-		 antMatchers("/login").permitAll()
+		 antMatchers("Insurance/insurance").permitAll().
+		 antMatchers("/login").permitAll().
+		 antMatchers("/users").permitAll()
+		 
 					/*
 					 * .antMatchers("/login"). hasAnyAuthority("USER", "CREATOR", "EDITOR", "ADMIN")
 					 * .antMatchers("/new").hasAnyAuthority("ADMIN", "CREATOR")

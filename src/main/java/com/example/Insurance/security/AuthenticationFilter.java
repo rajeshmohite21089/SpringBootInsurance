@@ -21,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.example.Insurance.model.LoginRequestModel;
+import com.example.Insurance.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Jwts;
@@ -72,9 +73,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 		
 		UserDetails userDetails=userService.loadUserByUsername(username);
 		
+		User user=userService.getUserByUserName(username);
+		
 		           System.out.println("userDetails.getAuthorities()"+userDetails.getAuthorities()); 
 
-		           
+		           System.out.println("user id"+user.getId());
 		          
 		           //response.setContentType("application/json");
 		          // response.setCharacterEncoding("UTF-8");
@@ -88,7 +91,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 	            
 	response.setHeader("token", token);
 	response.setHeader("userId", userDetails.getUsername());
-    response.getWriter().write(userDetails.getUsername() +":"+token+":"+userDetails.getAuthorities());
+    response.getWriter().write(user.getId() +":"+token+":"+userDetails.getAuthorities());
   
 
     response.flushBuffer();

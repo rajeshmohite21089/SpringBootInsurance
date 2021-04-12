@@ -15,5 +15,12 @@ public interface InsuranceRepository extends CrudRepository<Insurance, Long>{
 
 	@Query("SELECT u from Insurance u where u.policyTypeCode LIKE :policyTypeCode")
 	public List<Insurance> getInsuranceByPolicyTypeCode(@Param("policyTypeCode") String policyTypeCode);
-
+	
+	
+	
+	public Insurance findTopByOrderByIdDesc();
+	
+	public List<Insurance> findByUserId(Long userId);
+	
+	
 }

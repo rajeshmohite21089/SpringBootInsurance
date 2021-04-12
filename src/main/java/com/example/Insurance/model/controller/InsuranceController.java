@@ -21,18 +21,26 @@ import com.example.Insurance.model.exception.ResourceNotFoundException;
 import com.example.Insurance.repositoy.InsuranceRepository;
 import com.example.Insurance.security.MyUserDetails;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class InsuranceController {
 	
 	@Autowired
 	InsuranceRepository insuranceRepository;
 	
-	@GetMapping("/insurance")
-	public List<Insurance> getAllEmployeess() {
+	@GetMapping("/insurance/Users/{userId}")
+	public List<Insurance> getAllInsurance(@PathVariable (name="userId") long userId) {
 
-        return (List<Insurance>) insuranceRepository.findAll();
-		// return null;0
+
+		  if(userId==5) { 
+			  return (List<Insurance>)  insuranceRepository.findAll(); 
+		  }
+		  else { 
+			  return insuranceRepository.findByUserId(userId);
+		  
+		  
+		  }
+		
 	}
 	
 	
@@ -43,13 +51,21 @@ public class InsuranceController {
 		//System.out.println(employeeRepository.getEmployeeByFirstName(firstName));
 		System.out.println("inside serachEmployees");
 		return insuranceRepository.getInsuranceByPolicyTypeCode(policyTypeCode);
-		// return null;
+		
 	}
 	@PostMapping("/insurance")
 	public Insurance createEmployee(@RequestBody Insurance insurance) {
 		
 		
 		return insuranceRepository.save(insurance);
+	}
+	
+	@GetMapping("insurance/getInsuranceId")
+	public Long getInsuranceId()
+	{
+		Insurance insurance= insuranceRepository.findTopByOrderByIdDesc();
+		return insurance.getId() +1;
+		
 	}
 
 	@PutMapping("/insurance/{id}")
@@ -72,6 +88,7 @@ public class InsuranceController {
 
 		
 		final Insurance updateInsurance = insuranceRepository.save(insurance);
+		System.out.println(updateInsurance.getAmount());
 		return ResponseEntity.ok(updateInsurance);
 	}
 
