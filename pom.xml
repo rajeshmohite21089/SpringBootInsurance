@@ -87,12 +87,12 @@
   
 </dependency>
 
-<!-- <dependency>
+ <dependency>
    <groupId>com.example</groupId>
    <artifactId>agular8-springboot-client</artifactId>
    <version>${project.version}</version>
    <scope>runtime</scope>
-</dependency> -->
+</dependency> 
 	</dependencies>
 
 	<build>
