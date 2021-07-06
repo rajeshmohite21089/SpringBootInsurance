@@ -46,12 +46,6 @@
    <artifactId>spring-boot-starter-tomcat</artifactId>
    <scope>provided</scope>
 </dependency>
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> b03c89c8ebabde23b40a9def25312be1fae488fa
 <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
@@ -93,12 +87,12 @@
   
 </dependency>
 
-<!-- <dependency>
+ <dependency>
    <groupId>com.example</groupId>
    <artifactId>agular8-springboot-client</artifactId>
    <version>${project.version}</version>
    <scope>runtime</scope>
-</dependency> -->
+</dependency> 
 	</dependencies>
 
 	<build>
