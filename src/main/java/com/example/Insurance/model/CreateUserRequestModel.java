@@ -3,17 +3,27 @@ package com.example.Insurance.model;
 public class CreateUserRequestModel {
 		
 	
+
+		@Override
+	public String toString() {
+		return "CreateUserRequestModel [firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
+				+ ", username=" + username + ", email=" + email + "]";
+	}
+
 		private String firstName;
 		private String lastName;
 		private String password;
 		private String username;
+
+		private String email;
+
 		public String getUsername() {
 			return username;
 		}
 		public void setUsername(String username) {
 			this.username = username;
 		}
-		private String email;
+
 
 		public String getFirstName() {
 			return firstName;
