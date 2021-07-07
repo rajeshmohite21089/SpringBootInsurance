@@ -24,7 +24,7 @@ node{
 '''
    }*/
    stage('Deploy to Tomcat'){
-     bat "copy target\\Insurance.war \"${tomcatWeb}\\Insurance.war\""
+     bat "copy target\\Insurance-client.war \"${tomcatWeb}\\Insurance-client.war\""
    }
       stage ('Start Tomcat Server') {
          sleep(time:5,unit:"SECONDS") 
