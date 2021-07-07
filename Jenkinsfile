@@ -24,11 +24,11 @@ node{
 '''
    }*/
    stage('Deploy to Tomcat'){
-     bat "copy target\\JenkinsWar.war \"${tomcatWeb}\\JenkinsWar.war\""
+     bat "copy target\\Insurance.war \"${tomcatWeb}\\Insurance.war\""
    }
       stage ('Start Tomcat Server') {
          sleep(time:5,unit:"SECONDS") 
-         bat "${tomcatBin}\\startup.bat"
+         bat start cmd.exe /c "${tomcatBin}\\startup.bat"
          sleep(time:100,unit:"SECONDS")
    }
 }
