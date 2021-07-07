@@ -4,7 +4,7 @@ node{
    def tomcatBin = 'E:\\software\\apache-tomcat-8.5.64\\bin'
    def tomcatStatus = ''
    stage('SCM Checkout'){
-     git 'https://github.com/sivajavatechie/JenkinsWar.git'
+     git 'https://github.com/rajeshmohite21089/SpringBootInsurance.git'
    }
    stage('Compile-Package-create-war-file'){
       // Get maven home path
