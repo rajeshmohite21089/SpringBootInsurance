@@ -43,19 +43,16 @@ public class UserDetailsServiceImpl implements UserService {
 	}
 	@Override
 	public UserDTO createUser(UserDTO userDetails) {
-		// TODO Auto-generated method stub
 		
-		//userDetails.setId(Long.parseLong(UUID.randomUUID().toString()));
 		userDetails.setEncryptedPassword(bCryptPasswordEncoder.encode(userDetails.getPassword()));
 		ModelMapper modelmapper=new ModelMapper();
 		modelmapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		User userEntity=modelmapper.map(userDetails, User.class);
-		//userEntity.setEncryptedPassword("testt");
 		userRepository.save(userEntity);
 		
-		UserDTO returnValue=modelmapper.map(userEntity, UserDTO.class);
+		return modelmapper.map(userEntity, UserDTO.class);
 		
-		return returnValue;
+		
 	}
 	
 }

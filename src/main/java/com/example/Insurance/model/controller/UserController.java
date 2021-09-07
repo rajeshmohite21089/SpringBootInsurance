@@ -28,8 +28,6 @@ public class UserController {
 	@Lazy
 	private UserService userServices;
 	
-	@Autowired
-	private UserRepository userRepository;
 	
 	@PostMapping(
 			consumes= {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE},

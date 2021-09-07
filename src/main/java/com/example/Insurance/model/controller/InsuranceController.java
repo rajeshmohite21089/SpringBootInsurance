@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -18,25 +20,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Insurance.model.Insurance;
 import com.example.Insurance.model.exception.ResourceNotFoundException;
-import com.example.Insurance.repositoy.InsuranceRepository;
-import com.example.Insurance.security.MyUserDetails;
+import com.example.Insurance.security.InsuranceService;
+
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class InsuranceController {
 	
+	Logger logger = LoggerFactory.getLogger(InsuranceController.class);
+
+	
 	@Autowired
-	InsuranceRepository insuranceRepository;
+	InsuranceService insuranceService;
 	
 	@GetMapping("/insurance/Users/{userId}")
 	public List<Insurance> getAllInsurance(@PathVariable (name="userId") long userId) {
 
+		logger.info("Inside getAllInsurance"+userId);
 
 		  if(userId==5) { 
-			  return (List<Insurance>)  insuranceRepository.findAll(); 
+			  return  insuranceService.findAll(); 
 		  }
 		  else { 
-			  return insuranceRepository.findByUserId(userId);
+			  return insuranceService.findByUserId(userId);
 		  
 		  
 		  }
@@ -46,24 +52,27 @@ public class InsuranceController {
 	
 	@GetMapping("/insurance/searchInsurance/{policyTypeCode}")
 	public List<Insurance> getAllEmployeesByFirstName(@PathVariable (name="policyTypeCode") String policyTypeCode) {
-		System.out.println("start inside getAllEmployeesByFirstName");
+		
+		logger.info("Inside getAllEmployeesByFirstName"+policyTypeCode);
 
-		//System.out.println(employeeRepository.getEmployeeByFirstName(firstName));
-		System.out.println("inside serachEmployees");
-		return insuranceRepository.getInsuranceByPolicyTypeCode(policyTypeCode);
+		return insuranceService.getInsuranceByPolicyTypeCode(policyTypeCode);
 		
 	}
 	@PostMapping("/insurance")
-	public Insurance createEmployee(@RequestBody Insurance insurance) {
-		
-		
-		return insuranceRepository.save(insurance);
+	public Insurance createInsurance(@RequestBody Insurance insurance) {
+		logger.info("Inside createInsurance"+insurance);
+
+		return insuranceService.save(insurance);
 	}
 	
-	@GetMapping("insurance/getInsuranceId")
+	@GetMapping("/insurance/getInsuranceId")
 	public Long getInsuranceId()
 	{
-		Insurance insurance= insuranceRepository.findTopByOrderByIdDesc();
+		
+		logger.info("Inside getInsuranceId");
+
+		Insurance insurance= insuranceService.getInsuranceId();
+		
 		return insurance.getId() +1;
 		
 	}
@@ -72,8 +81,10 @@ public class InsuranceController {
 	public ResponseEntity<Insurance> updateEmployee(@PathVariable(value = "id") Long insuranceId,
 
 			 @RequestBody Insurance insurance) throws ResourceNotFoundException {
-		Insurance insurances = insuranceRepository.findById(insuranceId)
-				.orElseThrow(() -> new ResourceNotFoundException("Insurance not found for this id :: " + insuranceId));
+		
+		logger.info("Inside UpdateEmployee",insuranceId);
+
+		Insurance insurances = insuranceService.findById(insuranceId);
 
 		insurances.setAmount(insurance.getAmount());
 		insurances.setMaturityAmount(insurance.getMaturityAmount());
@@ -87,18 +98,19 @@ public class InsuranceController {
 		insurances.setMaturityPariod(insurance.getMaturityPariod());
 
 		
-		final Insurance updateInsurance = insuranceRepository.save(insurance);
-		System.out.println(updateInsurance.getAmount());
+		final Insurance updateInsurance = insuranceService.save(insurance);
 		return ResponseEntity.ok(updateInsurance);
 	}
 
 	@DeleteMapping("/insurance/{id}")
 	public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long insuranceId)
 			throws ResourceNotFoundException {
-		Insurance employee = insuranceRepository.findById(insuranceId)
-				.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + insuranceId));
+		
+		logger.info("Inside deleteEmployee", insuranceId);
 
-		insuranceRepository.delete(employee);
+		Insurance insurance = insuranceService.findById(insuranceId);
+
+		insuranceService.delete(insurance);
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;
@@ -106,9 +118,11 @@ public class InsuranceController {
 	@GetMapping("/insurance/{id}")
 	public ResponseEntity<Insurance> getEmployeeById(@PathVariable(value = "id") Long insuranceId)
 			throws ResourceNotFoundException {
-		Insurance Insurance = insuranceRepository.findById(insuranceId)
-				.orElseThrow(() -> new ResourceNotFoundException("Insurance not found for this id :: " + insuranceId));
-		return ResponseEntity.ok().body(Insurance);
+		
+		logger.info("Inside getEmployeeById");
+
+		Insurance insurance = insuranceService.findById(insuranceId);
+		return ResponseEntity.ok().body(insurance);
 	}
 	
 }
