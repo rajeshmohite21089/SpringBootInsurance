@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,16 +35,18 @@ public class InsuranceController {
 	InsuranceService insuranceService;
 	
 	@GetMapping("/insurance/Users/{userId}")
-	public List<Insurance> getAllInsurance(@PathVariable (name="userId") long userId) {
+	public ResponseEntity<List<Insurance>> getAllInsurance(@PathVariable (name="userId") long userId) {
 
 		logger.info("Inside getAllInsurance"+userId);
 
 		  if(userId==5) { 
-			  return  insuranceService.findAll(); 
+			  			  
+			  return new ResponseEntity<>(insuranceService.findAll(), HttpStatus.OK);
 		  }
 		  else { 
-			  return insuranceService.findByUserId(userId);
-		  
+			  return new ResponseEntity<>(insuranceService.findByUserId(userId), HttpStatus.OK);
+			  
+  
 		  
 		  }
 		
@@ -51,18 +54,21 @@ public class InsuranceController {
 	
 	
 	@GetMapping("/insurance/searchInsurance/{policyTypeCode}")
-	public List<Insurance> getAllEmployeesByFirstName(@PathVariable (name="policyTypeCode") String policyTypeCode) {
+	public ResponseEntity<List<Insurance>> getAllInsuranceByPolicyTypeCode(@PathVariable (name="policyTypeCode") String policyTypeCode) {
 		
 		logger.info("Inside getAllEmployeesByFirstName"+policyTypeCode);
 
-		return insuranceService.getInsuranceByPolicyTypeCode(policyTypeCode);
+	//	return insuranceService.getInsuranceByPolicyTypeCode(policyTypeCode);
+		
+		  return new ResponseEntity<>(insuranceService.getInsuranceByPolicyTypeCode(policyTypeCode), HttpStatus.OK);
 		
 	}
 	@PostMapping("/insurance")
-	public Insurance createInsurance(@RequestBody Insurance insurance) {
+	public ResponseEntity<Insurance> createInsurance(@RequestBody Insurance insurance) {
 		logger.info("Inside createInsurance"+insurance);
 
-		return insuranceService.save(insurance);
+		//return insuranceService.save(insurance);
+		return ResponseEntity.ok(insuranceService.save(insurance));
 	}
 	
 	@GetMapping("/insurance/getInsuranceId")
@@ -78,7 +84,7 @@ public class InsuranceController {
 	}
 
 	@PutMapping("/insurance/{id}")
-	public ResponseEntity<Insurance> updateEmployee(@PathVariable(value = "id") Long insuranceId,
+	public ResponseEntity<Insurance> updateInsurance(@PathVariable(value = "id") Long insuranceId,
 
 			 @RequestBody Insurance insurance) throws ResourceNotFoundException {
 		
@@ -103,7 +109,7 @@ public class InsuranceController {
 	}
 
 	@DeleteMapping("/insurance/{id}")
-	public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long insuranceId)
+	public Map<String, Boolean> deleteInsurance(@PathVariable(value = "id") Long insuranceId)
 			throws ResourceNotFoundException {
 		
 		logger.info("Inside deleteEmployee", insuranceId);
@@ -116,7 +122,7 @@ public class InsuranceController {
 		return response;
 	}
 	@GetMapping("/insurance/{id}")
-	public ResponseEntity<Insurance> getEmployeeById(@PathVariable(value = "id") Long insuranceId)
+	public ResponseEntity<Insurance> getInsuranceId(@PathVariable(value = "id") Long insuranceId)
 			throws ResourceNotFoundException {
 		
 		logger.info("Inside getEmployeeById");
